@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>4me — Match. Sample. Own.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,600;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@600;700;800&family=Tenor+Sans&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* --- Brand Color System (60-30-10 Rule) --- */
+    --bg-main: #F9F6F0;            /* 60% Warm Off-White / Ivory */
+    --bg-surface: #FFFFFF;         /* Crisp surface for cards */
+    --bg-soft: #F4EFEA;            /* Warm cream tinted container */
+    --bg-subtle: #EFE8DF;          /* Light sand tint */
+    
+    --secondary: #C6AC8F;          /* 30% Soft Warm Sand / Taupe */
+    --secondary-dark: #A88B6E;     /* Deeper Sand */
+    --secondary-light: #E7DCCF;    /* Pale Sand */
+    --secondary-soft: rgba(198, 172, 143, 0.18);
+    --secondary-glow: rgba(198, 172, 143, 0.35);
+
+    --accent: #3D261D;             /* 10% Deep Espresso / Earth Dark */
+    --accent-hover: #26160F;       /* Ultra dark roast */
+    --accent-soft: rgba(61, 38, 29, 0.08);
+    
+    --text-primary: #3D261D;       /* High contrast Espresso */
+    --text-secondary: #6E5345;     /* Warm Medium Earth */
+    --text-muted: #967C6E;         /* Soft Taupe Muted */
+    
+    --border: rgba(61, 38, 29, 0.12);
+    --border-strong: rgba(61, 38, 29, 0.22);
+    --border-sand: #DFD3C3;
+    
+    --gold: #B88942;
+    --sand-badge: #ECE3D8;
+    
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 22px;
+    --radius-xl: 30px;
+    --radius-pill: 999px;
+    
+    --shadow-subtle: 0 4px 20px rgba(61, 38, 29, 0.04);
+    --shadow-card: 0 10px 32px rgba(61, 38, 29, 0.07);
+    --shadow-float: 0 24px 50px -12px rgba(61, 38, 29, 0.14);
+    --shadow-btn: 0 8px 24px rgba(61, 38, 29, 0.18);
+    
+    --font-classy: 'Tenor Sans', sans-serif;
+    --font-display: 'Syne', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+    --font-head: 'Space Grotesk', sans-serif;
+    --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--secondary); color: var(--accent); }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; outline: none; }
+  img, svg { display: block; max-width: 100%; }
+
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 28px; }
+
+  /* ---------- NAVIGATION / TASKBAR ---------- */
+  header.nav {
+    position: sticky; top: 0; z-index: 120;
+    background: rgba(249, 246, 240, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.25s ease;
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 28px; max-width: 1240px; margin: 0 auto;
+  }
+  .logo {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 24px;
+    letter-spacing: -0.03em;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+  .logo span { color: var(--secondary-dark); }
+  .logo .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--secondary); display: inline-block; margin-left: 2px; }
+
+  .nav-links {
+    display: flex; gap: 36px; font-size: 14.5px; color: var(--text-secondary); font-weight: 500;
+  }
+  .nav-links a {
+    position: relative;
+    padding: 6px 0;
+    transition: color 0.2s ease;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+    background: var(--secondary); transition: width 0.25s ease; border-radius: 2px;
+  }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-actions {
+    display: flex; align-items: center; gap: 14px;
+  }
+  .nav-login {
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 9px 18px;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    transition: all 0.2s ease;
+  }
+  .nav-login:hover {
+    background: var(--accent-soft);
+    color: var(--accent-hover);
+  }
+  .nav-cta {
+    background: var(--accent);
+    color: var(--bg-main);
+    padding: 11px 24px;
+    border-radius: var(--radius-pill);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    box-shadow: 0 4px 14px rgba(61, 38, 29, 0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-cta:hover {
+    transform: translateY(-2px);
+    background: var(--accent-hover);
+    box-shadow: var(--shadow-btn);
+  }
+  @media(max-width: 890px) {
+    .nav-links { display: none; }
+  }
+
+  /* ---------- HERO SECTION ---------- */
+  .hero {
+    position: relative;
+    padding: 80px 0 90px;
+    overflow: hidden;
+  }
+  .hero-bg-glow-1 {
+    position: absolute; top: -120px; right: -80px; width: 620px; height: 620px;
+    background: radial-gradient(circle, rgba(198, 172, 143, 0.45) 0%, rgba(249, 246, 240, 0) 70%);
+    pointer-events: none; z-index: 0; filter: blur(40px);
+  }
+  .hero-bg-glow-2 {
+    position: absolute; bottom: -80px; left: -100px; width: 480px; height: 480px;
+    background: radial-gradient(circle, rgba(231, 220, 207, 0.5) 0%, rgba(249, 246, 240, 0) 70%);
+    pointer-events: none; z-index: 0;
+  }
+  .hero-grid {
+    display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: center; position: relative; z-index: 1;
+  }
+  @media(max-width: 980px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+  }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); background: var(--secondary-soft); border: 1px solid var(--border-sand);
+    padding: 7px 16px; border-radius: var(--radius-pill); margin-bottom: 24px;
+  }
+  .eyebrow .dot {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--secondary-dark); animation: pulseDot 2s infinite ease-in-out;
+  }
+  @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
+
+  h1.hero-head {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(38px, 4.4vw, 58px);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+  h1.hero-head .accent-word {
+    color: var(--secondary-dark);
+    font-style: italic;
+    font-family: var(--font-serif);
+    font-weight: 600;
+  }
+  .hero-sub {
+    font-size: 18px; color: var(--text-secondary); max-width: 520px; margin-bottom: 34px; font-weight: 400; line-height: 1.65;
+  }
+  .cta-row { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg-main);
+    padding: 16px 32px;
+    border-radius: var(--radius-pill);
+    font-size: 15.5px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: var(--shadow-btn);
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    background: var(--accent-hover);
+    box-shadow: 0 12px 30px rgba(61, 38, 29, 0.28);
+  }
+  .btn-primary svg { transition: transform 0.2s ease; }
+  .btn-primary:hover svg { transform: translateX(4px); }
+
+  .btn-ghost {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 15px;
+    padding: 15px 10px;
+    border-bottom: 2px solid var(--secondary);
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    transition: all 0.2s ease;
+  }
+  .btn-ghost:hover {
+    color: var(--accent-hover);
+    border-bottom-color: var(--accent);
+  }
+
+  .trust-row {
+    display: flex; gap: 26px; margin-top: 40px; flex-wrap: wrap; padding-top: 24px; border-top: 1px solid var(--border);
+  }
+  .trust-item {
+    font-size: 13px; color: var(--text-muted); display: flex; align-items: center; gap: 6px;
+  }
+  .trust-item b {
+    color: var(--accent); font-family: var(--font-head); font-size: 15.5px; font-weight: 700;
+  }
+
+  /* ---------- HERO VISUAL PHOTOGRAPHY ---------- */
+  .hero-visual { position: relative; display: flex; justify-content: center; align-items: center; }
+  .hero-image-wrap {
+    position: relative; width: 100%; max-width: 500px;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    border: 1px solid var(--border-sand);
+    box-shadow: var(--shadow-float);
+    background: var(--bg-surface);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  }
+  .hero-image-wrap:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 28px 60px rgba(61, 38, 29, 0.18);
+  }
+  .hero-image-wrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  .hero-image-wrap:hover img {
+    transform: scale(1.025);
+  }
+
+  .match-badge {
+    position: absolute; top: 16px; right: 16px;
+    background: var(--accent); color: var(--bg-main);
+    border-radius: var(--radius-pill); padding: 10px 18px; text-align: center;
+    box-shadow: 0 10px 24px rgba(61, 38, 29, 0.28);
+    border: 2px solid var(--bg-main);
+    z-index: 2;
+  }
+  .match-badge .pct {
+    font-family: var(--font-display); font-weight: 800; font-size: 17px; color: #FDFBF7;
+  }
+  .match-badge .lbl {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--secondary-light);
+  }
+  .hero-img-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px 20px;
+    background: linear-gradient(180deg, rgba(61, 38, 29, 0) 0%, rgba(61, 38, 29, 0.85) 100%);
+    color: #FAF7F2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+  }
+  .hero-img-caption span {
+    font-family: var(--font-classy);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 11px;
+    color: var(--secondary-light);
+  }
+
+  .box-lid {
+    background: linear-gradient(135deg, #3D261D 0%, #291811 100%);
+    border-radius: var(--radius-md); padding: 22px; color: #FFFFFF;
+    border: 1px solid rgba(198, 172, 143, 0.3);
+    margin-bottom: 18px;
+    position: relative; overflow: hidden;
+  }
+  .box-lid::after {
+    content: ''; position: absolute; top: -50%; right: -20%; width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(198, 172, 143, 0.3), transparent 70%);
+  }
+  .box-lid .box-tag {
+    font-family: var(--font-head); font-weight: 700; font-size: 11.5px; color: var(--secondary); letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .box-lid .box-title {
+    font-family: var(--font-display); font-weight: 800; font-size: 26px; margin-top: 4px; color: #FAF7F2;
+  }
+
+  .minis-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .mini {
+    background: var(--bg-main);
+    border: 1px solid var(--border-sand);
+    border-radius: var(--radius-sm); padding: 12px 8px; text-align: center;
+    box-shadow: 0 2px 8px rgba(61, 38, 29, 0.04);
+    transition: transform 0.2s ease;
+  }
+  .mini:hover { transform: translateY(-2px); }
+  .mini .swatch { width: 100%; height: 44px; border-radius: 6px; margin-bottom: 8px; }
+  .mini p { font-size: 10px; color: var(--text-secondary); font-weight: 500; line-height: 1.3; }
+  .mini p b { display: block; color: var(--text-primary); font-size: 11px; font-weight: 700; }
+
+  /* ---------- SECTION WRAPPERS ---------- */
+  section { padding: 96px 0; position: relative; }
+  .section-head { max-width: 660px; margin-bottom: 46px; }
+  .section-head.center { text-align: center; margin-left: auto; margin-right: auto; }
+  .section-tag {
+    font-size: 12.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--secondary-dark); margin-bottom: 12px; display: block; font-family: var(--font-head);
+  }
+  .section-title {
+    font-family: var(--font-display); font-weight: 800; font-size: clamp(28px, 3.4vw, 42px);
+    letter-spacing: -0.02em; color: var(--accent); margin-bottom: 14px; line-height: 1.15;
+  }
+  .section-desc {
+    color: var(--text-secondary); font-size: 16.5px; line-height: 1.65; max-width: 580px;
+  }
+  .divider { border-top: 1px solid var(--border); }
+
+  /* ---------- UGC / BEAUTY PLAYGROUND SOCIAL PROOF ---------- */
+  .ugc-section {
+    background: var(--bg-main);
+    padding: 90px 0 80px;
+  }
+  .ugc-bento {
+    display: grid;
+    grid-template-columns: 1.15fr 0.9fr 1.15fr;
+    grid-template-rows: auto auto;
+    gap: 16px;
+    margin-top: 36px;
+  }
+  @media (max-width: 960px) {
+    .ugc-bento { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .ugc-bento { grid-template-columns: 1fr; }
+  }
+
+  .ugc-card {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-sand);
+    box-shadow: var(--shadow-subtle);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  }
+  .ugc-card:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: var(--shadow-card);
+    border-color: var(--secondary-dark);
+  }
+  .ugc-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  .ugc-card:hover img {
+    transform: scale(1.04);
+  }
+  .ugc-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(61, 38, 29, 0) 50%, rgba(61, 38, 29, 0.72) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 18px 20px;
+    color: #FFFFFF;
+    pointer-events: none;
+  }
+  .ugc-pill {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: var(--radius-pill);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(61, 38, 29, 0.12);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: 0.02em;
+  }
+  .ugc-pill.accent {
+    background: var(--accent);
+    color: var(--bg-main);
+  }
+  .ugc-author {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 2px;
+    color: #FAF7F2;
+  }
+  .ugc-caption {
+    font-size: 12px;
+    color: #E7DCCF;
+    line-height: 1.35;
+  }
+
+  .ugc-card-tall-left { grid-row: span 2; min-height: 440px; }
+  .ugc-card-tall-right { grid-row: span 2; min-height: 440px; }
+  .ugc-card-mid-top { min-height: 210px; }
+  .ugc-card-mid-bottom { min-height: 210px; }
+  @media(max-width: 960px) {
+    .ugc-card-tall-left, .ugc-card-tall-right { grid-row: span 1; min-height: 280px; }
+  }
+
+  .trust-guarantee-strip {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 36px;
+    background: var(--bg-surface); border: 1px solid var(--border-sand); border-radius: var(--radius-lg); padding: 24px 30px; box-shadow: var(--shadow-subtle);
+  }
+  @media(max-width: 980px) { .trust-guarantee-strip { grid-template-columns: repeat(2, 1fr); } }
+  @media(max-width: 560px) { .trust-guarantee-strip { grid-template-columns: 1fr; } }
+  .trust-guarantee-item { display: flex; align-items: flex-start; gap: 14px; }
+  .trust-guarantee-icon {
+    width: 40px; height: 40px; border-radius: 10px; background: var(--sand-badge); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--accent);
+  }
+  .trust-guarantee-text h4 { font-family: var(--font-head); font-size: 14.5px; font-weight: 700; color: var(--accent); margin-bottom: 2px; }
+  .trust-guarantee-text p { font-size: 12.5px; color: var(--text-secondary); line-height: 1.4; }
+
+  /* ---------- DEDICATED QUIZ INVITATION BANNER (STEP 01) ---------- */
+  .quiz-section { background: var(--bg-soft); }
+  .quiz-launch-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-sand);
+    border-radius: var(--radius-xl);
+    padding: 56px 40px;
+    position: relative;
+    box-shadow: var(--shadow-card);
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 40px;
+    align-items: center;
+  }
+  @media(max-width: 860px) {
+    .quiz-launch-card {
+      grid-template-columns: 1fr;
+      padding: 36px 24px;
+      text-align: center;
+    }
+  }
+  .quiz-preview-badges {
+    display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px;
+  }
+  @media(max-width: 860px) {
+    .quiz-preview-badges { justify-content: center; }
+  }
+  
+  .quiz-mini-swatches-row {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: var(--bg-main); padding: 18px; border-radius: var(--radius-md); border: 1px solid var(--border-sand);
+  }
+  .mini-swatch-bar {
+    height: 42px; border-radius: 8px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; box-shadow: 0 2px 8px rgba(61, 38, 29, 0.06); font-family: var(--font-classy); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600;
+  }
+  .mini-swatch-bar.light { color: #3D261D; }
+  .mini-swatch-bar.dark { color: #FAF6F0; }
+
+  /* ---------- 3-STEP FLOW ---------- */
+  .flow-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  @media(max-width: 880px) { .flow-grid { grid-template-columns: 1fr; } }
+  .flow-card {
+    background: var(--bg-surface); border: 1px solid var(--border-sand); border-radius: var(--radius-lg); padding: 36px 30px; position: relative; box-shadow: var(--shadow-subtle); transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  }
+  .flow-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-card); border-color: var(--secondary-dark); }
+  .flow-num { font-family: var(--font-display); font-size: 15px; font-weight: 800; color: var(--secondary-dark); margin-bottom: 20px; letter-spacing: 0.06em; }
+  .flow-icon { width: 56px; height: 56px; border-radius: 14px; background: var(--sand-badge); display: flex; align-items: center; justify-content: center; margin-bottom: 22px; }
+  .flow-title { font-family: var(--font-head); font-size: 20px; font-weight: 700; color: var(--accent); margin-bottom: 12px; }
+  .flow-desc { color: var(--text-secondary); font-size: 14.5px; line-height: 1.6; }
+  .flow-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .flow-tag { font-size: 11.5px; background: var(--bg-soft); border: 1px solid var(--border-sand); padding: 5px 12px; border-radius: var(--radius-pill); color: var(--text-secondary); font-weight: 500; }
+
+  /* ---------- PRICING SECTION ---------- */
+  .pricing-section { background: var(--bg-soft); }
+  .tier-toggle {
+    display: inline-flex; background: var(--bg-surface); border: 1px solid var(--border-sand); border-radius: var(--radius-pill); padding: 5px; margin-bottom: 44px; gap: 4px; box-shadow: var(--shadow-subtle);
+  }
+  .tier-toggle button {
+    background: transparent; color: var(--text-secondary); font-size: 13.5px; font-weight: 600; padding: 10px 22px; border-radius: var(--radius-pill); transition: all 0.2s ease;
+  }
+  .tier-toggle button.active {
+    background: var(--accent); color: var(--bg-main); box-shadow: 0 4px 12px rgba(61, 38, 29, 0.16);
+  }
+  
+  .tiers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  @media(max-width: 1020px) { .tiers-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media(max-width: 620px) { .tiers-grid { grid-template-columns: 1fr; } }
+  
+  .tier-card {
+    background: var(--bg-surface); border: 1px solid var(--border-sand); border-radius: var(--radius-lg); padding: 32px 26px; position: relative; transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; box-shadow: var(--shadow-subtle);
+  }
+  .tier-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-card); border-color: var(--secondary-dark); }
+  .tier-card.featured { border-color: var(--accent); background: linear-gradient(175deg, #FFFFFF 0%, #FAF6F0 100%); box-shadow: 0 16px 36px rgba(61, 38, 29, 0.09); }
+  .tier-flag {
+    position: absolute; top: -12px; left: 24px; background: var(--accent); color: var(--bg-main); font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 5px 14px; border-radius: var(--radius-pill); box-shadow: 0 4px 10px rgba(61, 38, 29, 0.2);
+  }
+  .tier-name { font-family: var(--font-head); font-weight: 700; font-size: 19px; color: var(--accent); margin-bottom: 4px; }
+  .tier-subhead { font-size: 12.5px; color: var(--text-secondary); line-height: 1.4; margin-bottom: 12px; min-height: 35px; }
+  .tier-price { font-family: var(--font-display); font-weight: 800; font-size: 32px; color: var(--accent); margin-bottom: 18px; }
+  .tier-price sup { font-family: var(--font-body); font-weight: 500; font-size: 13px; color: var(--text-muted); }
+  .tier-list { list-style: none; margin-bottom: 24px; flex-grow: 1; }
+  .tier-list li { font-size: 13px; color: var(--text-secondary); padding: 9px 0; border-top: 1px solid var(--border); display: flex; gap: 9px; align-items: flex-start; line-height: 1.45; }
+  .tier-list li:first-child { border-top: none; }
+  .tier-list li svg { flex-shrink: 0; margin-top: 2px; }
+
+  .tier-btn {
+    width: 100%; padding: 13px; border-radius: var(--radius-pill); border: 1.5px solid var(--accent); background: transparent; color: var(--accent); font-size: 13.5px; font-weight: 600; transition: all 0.2s ease;
+  }
+  .tier-card.featured .tier-btn { background: var(--accent); color: var(--bg-main); border-color: var(--accent); }
+  .tier-btn:hover { background: var(--accent); color: var(--bg-main); }
+
+  /* ---------- SPLIT-SCREEN LOGIN MODAL ---------- */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(30, 20, 15, 0.65); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 24px;
+  }
+  .modal-overlay.active { display: flex; animation: fadeIn 0.25s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+  .modal-card {
+    background: #FFFFFF; border-radius: 20px; max-width: 920px; width: 100%; min-height: 520px; overflow: hidden; display: grid; grid-template-columns: 1.15fr 1fr; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35); position: relative;
+  }
+  @media(max-width: 768px) {
+    .modal-card { grid-template-columns: 1fr; max-height: 90vh; overflow-y: auto; }
+  }
+  .modal-close {
+    position: absolute; top: 16px; right: 16px; background: #FAF7F2; border: 1px solid #E8DDD2; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #333333; font-size: 22px; cursor: pointer; z-index: 20; transition: all 0.2s ease;
+  }
+  .modal-close:hover { background: #222222; color: #FFFFFF; border-color: #222222; }
+  .modal-visual {
+    position: relative; width: 100%; height: 100%; min-height: 480px; background: #FAF7F2; overflow: hidden;
+  }
+  @media(max-width: 768px) {
+    .modal-visual { min-height: 220px; height: 220px; }
+  }
+  .modal-img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .modal-pane {
+    padding: 48px 40px; display: flex; flex-direction: column; justify-content: center; background: #FFFFFF; text-align: left;
+  }
+  @media(max-width: 600px) {
+    .modal-pane { padding: 32px 24px; }
+  }
+  .modal-title { font-family: var(--font-body); font-size: 32px; font-weight: 800; color: #1E1E1E; letter-spacing: -0.02em; margin-bottom: 8px; line-height: 1.2; }
+  .modal-sub { font-family: var(--font-body); font-size: 14.5px; color: #555555; margin-bottom: 26px; line-height: 1.5; }
+  .form-group { margin-bottom: 16px; text-align: left; }
+  .form-group label { display: block; font-family: var(--font-body); font-size: 13px; font-weight: 700; color: #1E1E1E; margin-bottom: 6px; }
+  .form-input {
+    width: 100%; height: 44px; padding: 0 14px; border-radius: 8px; border: 1.5px solid #D5CECB; background: #FFFFFF; color: #1E1E1E; font-family: var(--font-body); font-size: 14.5px; outline: none; transition: all 0.2s ease;
+  }
+  .form-input:focus { border-color: #E6007E; box-shadow: 0 0 0 3px rgba(230, 0, 126, 0.12); }
+  .modal-btn {
+    width: 100%; height: 46px; background: #000000; color: #FFFFFF; border-radius: 6px; font-family: var(--font-body); font-size: 15px; font-weight: 700; border: none; cursor: pointer; margin-top: 6px; transition: background 0.18s ease, transform 0.12s ease;
+  }
+  .modal-btn:hover { background: #222222; transform: translateY(-1px); }
+  .modal-footer-links {
+    margin-top: 20px; display: flex; flex-direction: column; gap: 8px; text-align: center; font-family: var(--font-body); font-size: 13.5px; color: #555555;
+  }
+  .modal-link-row a { color: #1E1E1E; font-weight: 700; text-decoration: underline; margin-left: 2px; }
+
+  /* ---------- FOOTER ---------- */
+  footer { background: var(--bg-main); padding: 60px 0 40px; border-top: 1px solid var(--border); }
+  .footer-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+  .footer-links { display: flex; gap: 28px; font-size: 13.5px; color: var(--text-secondary); font-weight: 500; }
+  .footer-links a:hover { color: var(--accent); }
+  .footer-copy { font-size: 12.5px; color: var(--text-muted); }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo">4<span>me</span><span class="dot"></span></a>
+    
+    <nav class="nav-links">
+      <a href="#community">Community</a>
+      <a href="quiz.html">Match Quiz</a>
+      <a href="#pricing">Boxes</a>
+      <a href="#flow">How It Works</a>
+    </nav>
+    
+    <div class="nav-actions">
+      <button class="nav-login" id="openLoginBtn">Log In</button>
+      <a class="nav-cta" href="quiz.html">
+        Get Started
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO SECTION -->
+<section class="hero">
+  <div class="hero-bg-glow-1"></div>
+  <div class="hero-bg-glow-2"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <h1 class="hero-head">Stop Guessing Your Shade.<br><span class="accent-word">Start Matching.</span></h1>
+      <p class="hero-sub">Get 5 personalized deluxe samples algorithmically matched to your exact skin tone, undertones, and hair goals — every month.</p>
+      
+      <div class="cta-row">
+        <a class="btn-primary" href="quiz.html">
+          Get Started — Take Match Quiz (2 Mins)
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a class="btn-ghost" href="#pricing">See pricing tiers →</a>
+      </div>
+      
+      <div class="trust-row">
+        <div class="trust-item"><b>40,000+</b> members matched</div>
+        <div class="trust-item"><b>120+</b> brand partners</div>
+        <div class="trust-item"><b>4.8/5</b> avg. match rating</div>
+      </div>
+    </div>
+
+    <!-- HERO VISUAL PHOTOGRAPHY -->
+    <div class="hero-visual">
+      <div class="hero-image-wrap">
+        <img src="assets/hero-box.jpg" alt="4me unboxing curation — personalized makeup, shade swatches, and luxury pouches" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap divider"></div>
+
+<!-- COMMUNITY TRUST & UGC PLAYGROUND SECTION -->
+<section id="community" class="ugc-section">
+  <div class="wrap">
+    <div class="section-head center">
+      <span class="section-tag">Community & Verified Matches</span>
+      <h2 class="section-title">Welcome to Your Beauty Playground</h2>
+      <p class="section-desc" style="margin: 0 auto;">Real beauty lovers, real routines, real passion — matching holy-grail shades and unboxing monthly drops just like yours.</p>
+    </div>
+
+    <!-- Bento Collage Grid -->
+    <div class="ugc-bento">
+      <div class="ugc-card ugc-card-tall-left">
+        <span class="ugc-pill">✨ Verified Member Match</span>
+        <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80" alt="Real skin makeup application routine" />
+        <div class="ugc-overlay">
+          <div class="ugc-author">@ananya.glows · Mumbai</div>
+          <div class="ugc-caption">"Matched with NARS Caramel on first try. Never buying foundation blindly in store again."</div>
+        </div>
+      </div>
+
+      <div class="ugc-card ugc-card-mid-top">
+        <span class="ugc-pill">#matchedby4me</span>
+        <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?auto=format&fit=crop&w=700&q=80" alt="Friends unboxing cosmetics" />
+        <div class="ugc-overlay">
+          <div class="ugc-author">4me Creator Studio</div>
+          <div class="ugc-caption">Unboxing Drop #08 with the beauty squad.</div>
+        </div>
+      </div>
+
+      <div class="ugc-card ugc-card-tall-right">
+        <span class="ugc-pill accent">⭐ Verified Holy Grail</span>
+        <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=800&q=80" alt="Luxury cosmetics and unboxing swatch" />
+        <div class="ugc-overlay">
+          <div class="ugc-author">@priya.curates · Bangalore</div>
+          <div class="ugc-caption">"Got the Rare Beauty liquid blush and NARS radiant concealer in my box. Undertone calibration is 10/10 perfection."</div>
+        </div>
+      </div>
+
+      <div class="ugc-card ugc-card-mid-bottom">
+        <span class="ugc-pill">⭐ 99.4% Match Rate</span>
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=700&q=80" alt="Real customer glowy skin complexion" />
+        <div class="ugc-overlay">
+          <div class="ugc-author">@ria_undertones · Delhi</div>
+          <div class="ugc-caption">"Golden olive undertone precision. Clean skin, zero flashback."</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trust & Authenticity Guarantee Highlights -->
+    <div class="trust-guarantee-strip">
+      <div class="trust-guarantee-item">
+        <div class="trust-guarantee-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="trust-guarantee-text">
+          <h4>100% Brand Certified</h4>
+          <p>Official partnerships with authorized prestige brand houses.</p>
+        </div>
+      </div>
+
+      <div class="trust-guarantee-item">
+        <div class="trust-guarantee-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <div class="trust-guarantee-text">
+          <h4>99.4% Match Accuracy</h4>
+          <p>Trained algorithm tailored to Indian skin depths & undertones.</p>
+        </div>
+      </div>
+
+      <div class="trust-guarantee-item">
+        <div class="trust-guarantee-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="trust-guarantee-text">
+          <h4>Skip or Pause Anytime</h4>
+          <p>Zero lock-ins. Manage delivery dates easily in one click.</p>
+        </div>
+      </div>
+
+      <div class="trust-guarantee-item">
+        <div class="trust-guarantee-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="1" y="3" width="15" height="13" rx="2" stroke="currentColor" stroke-width="2"/><path d="M16 8h4l3 3v5h-7V8zM5.5 21a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM18.5 21a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" stroke="currentColor" stroke-width="2"/></svg>
+        </div>
+        <div class="trust-guarantee-text">
+          <h4>Free Tracked Shipping</h4>
+          <p>Delivered securely directly to your doorstep all over India.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap divider"></div>
+
+<!-- STEP 01: QUIZ LAUNCH SECTION -->
+<section id="quiz" class="quiz-section">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">Step 01 · Build Your Profile</span>
+      <h2 class="section-title">The 4me Match Quiz</h2>
+      <p class="section-desc">Two minutes of precision questions feed our shade matching engine — depth, undertone, concerns, and your personal beauty aesthetic.</p>
+    </div>
+
+    <div class="quiz-launch-card">
+      <div>
+        <div class="quiz-preview-badges">
+          <span class="ugc-pill">⚡ 2-Minute Match</span>
+          <span class="ugc-pill accent">🎯 99.4% Precision</span>
+        </div>
+        <h3 style="font-family: var(--font-display); font-size: 26px; color: var(--accent); margin-bottom: 12px; font-weight: 800; line-height: 1.3;">Find Your Exact Formula & Shade Match</h3>
+        <p style="color: var(--text-secondary); font-size: 16px; margin-bottom: 28px; line-height: 1.6;">
+          Answer a few quick questions about your undertone, skin goals, and go-to style, and we’ll pinpoint your exact formula and shade match.
+        </p>
+        <a class="btn-primary" href="quiz.html">
+          Start the 4me Match Quiz
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <!-- Classy direct swatches without word boxes -->
+      <div class="quiz-mini-swatches-row">
+        <div class="mini-swatch-bar light" style="background: radial-gradient(circle at 30% 30%, #FFF6EE, #DFC0A1);">Fair</div>
+        <div class="mini-swatch-bar light" style="background: radial-gradient(circle at 30% 30%, #F7DFCA, #CBA480);">Light</div>
+        <div class="mini-swatch-bar light" style="background: radial-gradient(circle at 30% 30%, #EAC6A4, #B58C62);">Lt Med</div>
+        <div class="mini-swatch-bar light" style="background: radial-gradient(circle at 30% 30%, #DFB489, #A27142);">Medium</div>
+        <div class="mini-swatch-bar dark" style="background: radial-gradient(circle at 30% 30%, #CE9663, #8E5627);">Med Tan</div>
+        <div class="mini-swatch-bar dark" style="background: radial-gradient(circle at 30% 30%, #B57442, #743C12);">Tan</div>
+        <div class="mini-swatch-bar dark" style="background: radial-gradient(circle at 30% 30%, #8B4D25, #491F07);">Dark</div>
+        <div class="mini-swatch-bar dark" style="background: radial-gradient(circle at 30% 30%, #663316, #2F1204);">Deep</div>
+        <div class="mini-swatch-bar dark" style="background: radial-gradient(circle at 30% 30%, #3D2218, #150904);">V-Deep</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap divider"></div>
+
+<!-- STEP FLOW -->
+<section id="flow">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">How 4me Works</span>
+      <h2 class="section-title">Three steps. Zero guessing.</h2>
+      <p class="section-desc">From profile creation to your monthly curated beauty haul — the entire experience is built around one simple promise: never buy blind again.</p>
+    </div>
+    
+    <div class="flow-grid">
+      <div class="flow-card">
+        <div class="flow-num">01</div>
+        <div class="flow-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#3D261D" stroke-width="1.8"/><path d="M4 20c0-4 3.5-6 8-6s8 2 8 6" stroke="#3D261D" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div class="flow-title">Build Your Profile</div>
+        <div class="flow-desc">Our intelligent algorithm records your shade depth, undertones, and daily care goals to establish your exact beauty index.</div>
+        <div class="flow-tags"><span class="flow-tag">2-min quiz</span><span class="flow-tag">Re-takeable anytime</span></div>
+      </div>
+
+      <div class="flow-card">
+        <div class="flow-num">02</div>
+        <div class="flow-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="4" y="8" width="16" height="12" rx="1.5" stroke="#3D261D" stroke-width="1.8"/><path d="M4 8l8-4 8 4" stroke="#3D261D" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="flow-title">Unbox Your Monthly Drop</div>
+        <div class="flow-desc">5 customized deluxe minis delivered to your doorstep every month — blending cult D2C essentials with prestige luxury brands.</div>
+        <div class="flow-tags"><span class="flow-tag">Monthly drop</span><span class="flow-tag">Pause & skip anytime</span></div>
+      </div>
+
+      <div class="flow-card">
+        <div class="flow-num">03</div>
+        <div class="flow-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3v3M12 18v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M3 12h3M18 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12" stroke="#3D261D" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div class="flow-title">Rate, Refine & Evolve</div>
+        <div class="flow-desc">Share feedback on what you loved. Our algorithm gets smarter each month, fine-tuning upcoming shades and formula textures.</div>
+        <div class="flow-tags"><span class="flow-tag">Continuous learning</span><span class="flow-tag">Precision matching</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap divider"></div>
+
+<!-- STEP 02: PRICING -->
+<section id="pricing" class="pricing-section">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">Step 02 · Choose Your Box</span>
+      <h2 class="section-title">Four tiers. One matching engine.</h2>
+      <p class="section-desc">Every tier runs on our precision skin-matching technology — the difference is brand tier, product size, and overall box value.</p>
+    </div>
+
+    <div class="tier-toggle" id="tierToggle">
+      <button class="active" data-filter="all">All Tiers</button>
+      <button data-filter="core">Core Line</button>
+      <button data-filter="luxe">Prestige Line</button>
+    </div>
+
+    <div class="tiers-grid" id="tiersGrid">
+      <!-- Tier 1: The Essential Bag -->
+      <div class="tier-card" data-tier="core">
+        <div class="tier-name">The Essential Bag</div>
+        <div class="tier-subhead">Your daily beauty staples, perfectly tailored.</div>
+        <div class="tier-price">₹1,299<sup>/mo</sup></div>
+        <ul class="tier-list">
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#3D261D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>5 personalized deluxe minis (complexion, lip & skincare)</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#3D261D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Daily staples featuring cult-favorites like Maybelline, Forever 52, Elf, etc.</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#3D261D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Personalized shade matching tailored to your skin tone</li>
+        </ul>
+        <a class="tier-btn" style="text-align:center; display:block;" href="quiz.html">Choose The Starter Edit</a>
+      </div>
+
+      <!-- Tier 2: The Signature Edit -->
+      <div class="tier-card" data-tier="core">
+        <div class="tier-name">The Signature Edit</div>
+        <div class="tier-subhead">The ultimate balance of full-sized icons and discovery minis.</div>
+        <div class="tier-price">₹1,899<sup>/mo</sup></div>
+        <ul class="tier-list">
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#3D261D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>2 full-size hero products + 3 deluxe travel minis</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#3D261D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Elevated formula selection matched to your exact shade matrix</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#3D261D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Complimentary seasonal shade adjustment</li>
+        </ul>
+        <a class="tier-btn" style="text-align:center; display:block;" href="quiz.html">Choose The Signature Edit</a>
+      </div>
+
+      <!-- Tier 3: The Luxe Edit -->
+      <div class="tier-card featured" data-tier="luxe">
+        <div class="tier-flag">Most Matched</div>
+        <div class="tier-name">The Luxe Edit</div>
+        <div class="tier-subhead">Prestige global beauty curated specifically for you.</div>
+        <div class="tier-price">₹2,299<sup>/mo</sup></div>
+        <ul class="tier-list">
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#3D261D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>5 premium prestige minis & full-size highlights</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#3D261D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>High-end curation featuring NARS, MAC, Estée Lauder, Rare Beauty, etc.</li>
+        </ul>
+        <a class="tier-btn" style="text-align:center; display:block;" href="quiz.html">Choose The Luxe Edit</a>
+      </div>
+
+      <!-- Tier 4: The Reserve -->
+      <div class="tier-card" data-tier="luxe">
+        <div class="tier-name">The Reserve</div>
+        <div class="tier-subhead">An all-full-size VIP experience curated by industry tastemakers.</div>
+        <div class="tier-price">₹3,499<sup>/mo</sup></div>
+        <ul class="tier-list">
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#3D261D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>2-3 full-size ultra-luxury items tailored to your beauty profile</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#3D261D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Only ultra-luxury items tailored to your beauty profile</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#3D261D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Guest curated by top beauty creators & celebrity artists</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#3D261D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Exclusive invitations to virtual masterclasses with beauty pros</li>
+        </ul>
+        <a class="tier-btn" style="text-align:center; display:block;" href="quiz.html">Choose The Reserve</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPLIT-SCREEN LOGIN MODAL -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal-card">
+    <button class="modal-close" id="closeLoginBtn" title="Close">&times;</button>
+    
+    <!-- Left Column: 4Me Hero Image -->
+    <div class="modal-visual">
+      <img src="assets/login-hero.jpg" alt="4Me Beauty Box & Mailer" class="modal-img" />
+    </div>
+
+    <!-- Right Column: Welcome Back Form -->
+    <div class="modal-pane">
+      <h3 class="modal-title">Welcome Back!</h3>
+      <p class="modal-sub">Log in to 4me to access the beauty subscription made for play.</p>
+      
+      <form onsubmit="event.preventDefault(); alert('Welcome back to 4me!'); document.getElementById('loginModal').classList.remove('active');">
+        <div class="form-group">
+          <label>Email Address*</label>
+          <input type="email" class="form-input" placeholder="name@example.com" required />
+        </div>
+        
+        <div class="form-group">
+          <label>Password*</label>
+          <input type="password" class="form-input" placeholder="••••••••" required />
+        </div>
+        
+        <button type="submit" class="modal-btn">Continue</button>
+
+        <div class="modal-footer-links">
+          <p class="modal-link-row">Not a member? <a href="quiz.html">Join Now</a></p>
+          <p class="modal-link-row">Need help? <a href="mailto:care@4mebeauty.com">Contact 4me Care</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap footer-row">
+    <div class="logo">4<span>me</span><span class="dot"></span></div>
+    
+    <div class="footer-links">
+      <a href="#community">Community</a>
+      <a href="quiz.html">Match Quiz</a>
+      <a href="#pricing">Boxes</a>
+      <a href="#flow">How It Works</a>
+    </div>
+    
+    <div class="footer-copy">4me Platform © 2026 · Match. Sample. Own.</div>
+  </div>
+</footer>
+
+<script>
+  // ---------------- PRICING FILTER ----------------
+  const toggleBtns = document.querySelectorAll('#tierToggle button');
+  const tierCards = document.querySelectorAll('.tier-card');
+  toggleBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      toggleBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      tierCards.forEach(card => {
+        if(filter === 'all' || card.dataset.tier === filter){
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // ---------------- LOGIN MODAL ----------------
+  const loginModal = document.getElementById('loginModal');
+  const openLoginBtn = document.getElementById('openLoginBtn');
+  const closeLoginBtn = document.getElementById('closeLoginBtn');
+
+  openLoginBtn.addEventListener('click', () => {
+    loginModal.classList.add('active');
+  });
+
+  closeLoginBtn.addEventListener('click', () => {
+    loginModal.classList.remove('active');
+  });
+
+  loginModal.addEventListener('click', (e) => {
+    if(e.target === loginModal) loginModal.classList.remove('active');
+  });
+</script>
+
+</body>
+</html>

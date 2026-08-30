@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Log In · 4me Beauty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&family=Tenor+Sans&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-main: #F9F6F0;
+    --accent: #3D261D;
+    --border-sand: #DFD3C3;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background-color: var(--bg-main);
+    color: #1E1E1E;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  header {
+    padding: 16px 28px;
+    background: rgba(255,255,255,0.95);
+    border-bottom: 1px solid rgba(61,38,29,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    letter-spacing: -0.03em;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .logo span { color: #9F8265; }
+  .nav-exit {
+    font-family: 'Tenor Sans', sans-serif;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #6E5345;
+    text-decoration: none;
+  }
+  .nav-exit:hover { color: var(--accent); }
+
+  main.login-page-main {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 20px 60px;
+  }
+
+  .login-card-container {
+    max-width: 960px;
+    width: 100%;
+    min-height: 540px;
+    background: #FFFFFF;
+    border-radius: 20px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    box-shadow: 0 20px 60px rgba(61, 38, 29, 0.12);
+    border: 1px solid var(--border-sand);
+  }
+  @media(max-width: 768px) {
+    .login-card-container {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .login-visual {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 480px;
+    background: #FAF7F2;
+    overflow: hidden;
+  }
+  @media(max-width: 768px) {
+    .login-visual { min-height: 240px; height: 240px; }
+  }
+  .login-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .login-pane {
+    padding: 48px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #FFFFFF;
+    text-align: left;
+  }
+  @media(max-width: 600px) {
+    .login-pane { padding: 32px 24px; }
+  }
+  .welcome-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1E1E1E;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .welcome-subtitle {
+    font-size: 14.5px;
+    color: #555555;
+    margin-bottom: 26px;
+    line-height: 1.5;
+  }
+
+  .welcome-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+  .welcome-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+  }
+  .welcome-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1E1E1E;
+  }
+  .welcome-input {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    border-radius: 8px;
+    border: 1.5px solid #D5CECB;
+    background: #FFFFFF;
+    color: #1E1E1E;
+    font-size: 14.5px;
+    outline: none;
+    transition: all 0.2s ease;
+  }
+  .welcome-input:focus {
+    border-color: #E6007E;
+    box-shadow: 0 0 0 3px rgba(230, 0, 126, 0.12);
+  }
+
+  .welcome-submit-btn {
+    width: 100%;
+    height: 46px;
+    background: #000000;
+    color: #FFFFFF;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    margin-top: 6px;
+    transition: background 0.18s ease, transform 0.12s ease;
+  }
+  .welcome-submit-btn:hover {
+    background: #222222;
+    transform: translateY(-1px);
+  }
+
+  .welcome-footer-links {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+    font-size: 13.5px;
+    color: #555555;
+  }
+  .welcome-link-row a {
+    color: #1E1E1E;
+    font-weight: 700;
+    text-decoration: underline;
+    margin-left: 2px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">4<span>me</span></a>
+  <a href="index.html" class="nav-exit">Exit</a>
+</header>
+
+<main class="login-page-main">
+  <div class="login-card-container">
+    <div class="login-visual">
+      <img src="assets/login-hero.jpg" alt="4Me Beauty Box & Mailer" class="login-img" />
+    </div>
+
+    <div class="login-pane">
+      <h1 class="welcome-title">Welcome Back!</h1>
+      <p class="welcome-subtitle">Log in to 4me to access the beauty subscription made for play.</p>
+
+      <form class="welcome-form" onsubmit="event.preventDefault(); alert('Welcome back to 4me!'); window.location.href='index.html';">
+        <div class="welcome-input-group">
+          <label for="loginEmailInput" class="welcome-label">Email Address*</label>
+          <input type="email" id="loginEmailInput" class="welcome-input" placeholder="name@example.com" required />
+        </div>
+
+        <div class="welcome-input-group">
+          <label for="loginPassInput" class="welcome-label">Password*</label>
+          <input type="password" id="loginPassInput" class="welcome-input" placeholder="••••••••" required />
+        </div>
+
+        <button type="submit" class="welcome-submit-btn">Continue</button>
+
+        <div class="welcome-footer-links">
+          <p class="welcome-link-row">Not a member? <a href="quiz.html">Join Now</a></p>
+          <p class="welcome-link-row">Need help? <a href="mailto:care@4mebeauty.com">Contact 4me Care</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+</body>
+</html>
