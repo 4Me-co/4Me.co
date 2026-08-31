@@ -2878,6 +2878,10 @@
     loginToJoinLink.addEventListener('click', (e) => {
       e.preventDefault();
       splitLoginModal.classList.remove('active');
+      const activeSteps = getActiveSteps();
+      currentStepIdx = activeSteps.length - 1;
+      renderStep(currentStepIdx);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
 
@@ -2895,7 +2899,14 @@
     if (splitLoginModal) splitLoginModal.classList.remove('active');
   }
 
-  renderStep(0);
+  // Check URL hash for direct signup navigation
+  if (window.location.hash === '#signup') {
+    const activeSteps = getActiveSteps();
+    currentStepIdx = activeSteps.length - 1;
+    renderStep(currentStepIdx);
+  } else {
+    renderStep(0);
+  }
 </script>
 
 </body>
