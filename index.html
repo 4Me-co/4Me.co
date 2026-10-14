@@ -97,7 +97,7 @@
     height: 44px;
     width: auto;
     object-fit: contain;
-    mix-blend-mode: multiply;
+    mix-blend-mode: normal;
     transition: transform 0.2s ease;
   }
   .brand-logo-wrap:hover .brand-logo-img {
@@ -539,9 +539,55 @@
     background: var(--accent); color: var(--bg-main); box-shadow: 0 4px 12px rgba(61, 38, 29, 0.16);
   }
   
-  .tiers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-  @media(max-width: 1020px) { .tiers-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media(max-width: 620px) { .tiers-grid { grid-template-columns: 1fr; } }
+  .tiers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .tiers-grid.two-cols { grid-template-columns: repeat(2, 1fr); max-width: 760px; margin: 0 auto; }
+  @media(max-width: 1020px) { .tiers-grid { grid-template-columns: repeat(2, 1fr); } .tiers-grid.two-cols { grid-template-columns: repeat(2, 1fr); } }
+  @media(max-width: 620px) { .tiers-grid, .tiers-grid.two-cols { grid-template-columns: 1fr; max-width: 100%; } }
+
+  /* Gender switch tabs */
+  .gender-switch {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 20px;
+    background: #F4EFEA;
+    border-radius: 999px;
+    padding: 5px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1.5px solid #E2D9CF;
+  }
+  .gender-switch button {
+    padding: 10px 28px;
+    border: none;
+    background: transparent;
+    border-radius: 999px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    color: #7A6A5F;
+    cursor: pointer;
+    transition: all 0.22s ease;
+    letter-spacing: 0.01em;
+  }
+  .gender-switch button.active {
+    background: #203B2B;
+    color: #F8F5EE;
+    box-shadow: 0 2px 10px rgba(32, 59, 43, 0.2);
+  }
+  .tier-gender-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-bottom: 8px;
+  }
+  .badge-her { background: #F8EEF4; color: #8B3A6A; }
+  .badge-him { background: #E8F0EA; color: #203B2B; }
   
   .tier-card {
     background: var(--bg-surface); border: 1px solid var(--border-sand); border-radius: var(--radius-lg); padding: 32px 26px; position: relative; transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; box-shadow: var(--shadow-subtle);
@@ -1081,59 +1127,106 @@
   <div class="wrap">
     <div class="section-head">
       <span class="section-tag">Step 02 · Choose Your Box</span>
-      <h2 class="section-title">Three tiers. One matching engine.</h2>
+      <h2 class="section-title">Curated for every version of you.</h2>
       <p class="section-desc">Every tier runs on our precision skin-matching technology — the difference is brand tier, product size, and overall box value.</p>
     </div>
 
+    <!-- GENDER SWITCH -->
+    <div class="gender-switch" id="genderSwitch">
+      <button class="active" data-gender="her">✦ For Her</button>
+      <button data-gender="him">✦ For Him</button>
+    </div>
+
+    <!-- TIER FILTER -->
     <div class="tier-toggle" id="tierToggle">
       <button class="active" data-filter="all">All Tiers</button>
       <button data-filter="core">Essential tier</button>
       <button data-filter="luxe">Prestige tier</button>
     </div>
 
-    <div class="tiers-grid" id="tiersGrid">
-      <!-- Tier 1: The Essential Edit -->
-      <div class="tier-card" data-tier="core">
+    <!-- ===== FOR HER CARDS ===== -->
+    <div class="tiers-grid" id="tiersGridHer">
+      <!-- Tier 1: The Essential Edit (Her) -->
+      <div class="tier-card her-card" data-tier="core">
+        <div class="tier-gender-badge badge-her">For Her</div>
         <div class="tier-name">The Essential Edit</div>
         <div class="tier-subhead">The ultimate balance of full-sized icons and discovery travel items.</div>
-        <div class="tier-price">₹1,499<sup>/mo</sup></div>
+        <div class="tier-price">&#8377;1,499<sup>/mo</sup></div>
         <ul class="tier-list">
           <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#3D261D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>1 to 2 full-size products + 3 to 4 travel-size products</li>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#3D261D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Elevated formula selection matched to your exact skin & undertone profile</li>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#3D261D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Box value: ₹2,500+</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#3D261D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Elevated formula selection matched to your exact skin &amp; undertone profile</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#3D261D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Box value: &#8377;2,500+</li>
         </ul>
         <a class="tier-btn" style="text-align:center; display:block;" href="quiz.html#signup">Choose The Essential Edit</a>
       </div>
 
-      <!-- Tier 2: The Premium Edit -->
-      <div class="tier-card featured" data-tier="luxe">
+      <!-- Tier 2: The Premium Edit (Her) -->
+      <div class="tier-card featured her-card" data-tier="luxe">
         <div class="tier-flag">Most Matched</div>
+        <div class="tier-gender-badge badge-her">For Her</div>
         <div class="tier-name">The Premium Edit</div>
-        <div class="tier-subhead">Prestige global beauty curated specifically for your skin & style.</div>
-        <div class="tier-price">₹2,499<sup>/mo</sup></div>
+        <div class="tier-subhead">Prestige global beauty curated specifically for your skin &amp; style.</div>
+        <div class="tier-price">&#8377;2,499<sup>/mo</sup></div>
         <ul class="tier-list">
           <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#3D261D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>2 full-size products + 3 travel-size products from well-known global brands like MAC or Kiehl's</li>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#3D261D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>High-end curation featuring NARS, MAC, Estée Lauder, Rare Beauty, etc.</li>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#3D261D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Box value: ₹4,500+</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#3D261D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>High-end curation featuring NARS, MAC, Estee Lauder, Rare Beauty, etc.</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#3D261D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Box value: &#8377;4,500+</li>
         </ul>
         <a class="tier-btn" style="text-align:center; display:block;" href="quiz.html#signup">Choose The Premium Edit</a>
       </div>
 
-      <!-- Tier 3: Icon Box -->
-      <div class="tier-card" data-tier="luxe">
+      <!-- Tier 3: Icon Box (Her) -->
+      <div class="tier-card her-card" data-tier="luxe">
+        <div class="tier-gender-badge badge-her">For Her</div>
         <div class="tier-name">Icon Box</div>
         <div class="tier-subhead">An all-luxury VIP experience curated by industry tastemakers.</div>
-        <div class="tier-price">₹4,999<sup>/mo</sup></div>
+        <div class="tier-price">&#8377;4,999<sup>/mo</sup></div>
         <ul class="tier-list">
           <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#3D261D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>5 products from top-end luxury houses</li>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#3D261D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Guest curated by top beauty creators & celebrity artists</li>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#3D261D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Box value: ₹8,000+</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#3D261D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Guest curated by top beauty creators &amp; celebrity artists</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#3D261D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Box value: &#8377;8,000+</li>
         </ul>
         <a class="tier-btn" style="text-align:center; display:block;" href="quiz.html#signup">Choose Icon Box</a>
       </div>
     </div>
+
+    <!-- ===== FOR HIM CARDS ===== -->
+    <div class="tiers-grid two-cols" id="tiersGridHim" style="display:none;">
+      <!-- Tier 1: The Essential Edit (Him) -->
+      <div class="tier-card him-card" data-tier="core">
+        <div class="tier-gender-badge badge-him">For Him</div>
+        <div class="tier-name">The Essential Edit</div>
+        <div class="tier-subhead">The smart grooming starter — full-size essentials and travel-size discovery products matched to your skin and hair.</div>
+        <div class="tier-price">&#8377;1,499<sup>/mo</sup></div>
+        <ul class="tier-list">
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#203B2B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>1 to 2 full-size grooming products + 3 to 4 travel-size products</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#203B2B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Skincare, haircare &amp; beard care matched to your skin type &amp; concerns</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#203B2B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Brands like Kiehl's Men, Forest Essentials Men, Ustraa &amp; more</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#203B2B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Box value: &#8377;2,500+</li>
+        </ul>
+        <a class="tier-btn" style="text-align:center; display:block;" href="quiz.html#signup">Choose The Essential Edit</a>
+      </div>
+
+      <!-- Tier 2: The Premium Edit (Him) -->
+      <div class="tier-card featured him-card" data-tier="luxe">
+        <div class="tier-flag">Most Matched</div>
+        <div class="tier-gender-badge badge-him">For Him</div>
+        <div class="tier-name">The Premium Edit</div>
+        <div class="tier-subhead">Prestige grooming from global powerhouses — precision-matched to your skin depth, hair type, and lifestyle goals.</div>
+        <div class="tier-price">&#8377;2,499<sup>/mo</sup></div>
+        <ul class="tier-list">
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#203B2B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>2 full-size products + 3 travel-size products from well-known global grooming brands</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#203B2B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Prestige brands like Kiehl's Men, Clinique For Men, Baxter of California &amp; Murdock London</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#203B2B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Covers face wash, moisturiser, serum, eye cream, post-shave &amp; haircare</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#203B2B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Box value: &#8377;4,500+</li>
+        </ul>
+        <a class="tier-btn" style="text-align:center; display:block;" href="quiz.html#signup">Choose The Premium Edit</a>
+      </div>
+    </div>
+
   </div>
 </section>
+
 
 <!-- SPLIT-SCREEN LOGIN MODAL -->
 <div class="modal-overlay" id="loginModal">
@@ -1189,21 +1282,55 @@
 </footer>
 
 <script>
-  // ---------------- PRICING FILTER ----------------
+  // ---------------- PRICING FILTER (GENDER + TIER) ----------------
+  let activeGender = 'her';
+  let activeTierFilter = 'all';
+
+  const genderBtns = document.querySelectorAll('#genderSwitch button');
   const toggleBtns = document.querySelectorAll('#tierToggle button');
-  const tierCards = document.querySelectorAll('.tier-card');
-  toggleBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      toggleBtns.forEach(b => b.classList.remove('active'));
+  const gridHer = document.getElementById('tiersGridHer');
+  const gridHim = document.getElementById('tiersGridHim');
+
+  function applyFilters() {
+    // Show the right gender grid
+    if (activeGender === 'her') {
+      gridHer.style.display = 'grid';
+      gridHim.style.display = 'none';
+    } else {
+      gridHer.style.display = 'none';
+      gridHim.style.display = 'grid';
+    }
+
+    // Apply tier filter within visible grid
+    const activeGrid = activeGender === 'her' ? gridHer : gridHim;
+    activeGrid.querySelectorAll('.tier-card').forEach(function(card) {
+      if (activeTierFilter === 'all' || card.dataset.tier === activeTierFilter) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  genderBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      genderBtns.forEach(function(b) { b.classList.remove('active'); });
       btn.classList.add('active');
-      const filter = btn.dataset.filter;
-      tierCards.forEach(card => {
-        if(filter === 'all' || card.dataset.tier === filter){
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
-        }
-      });
+      activeGender = btn.dataset.gender;
+      // Reset tier filter when switching gender
+      activeTierFilter = 'all';
+      toggleBtns.forEach(function(b) { b.classList.remove('active'); });
+      toggleBtns[0].classList.add('active');
+      applyFilters();
+    });
+  });
+
+  toggleBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      toggleBtns.forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      activeTierFilter = btn.dataset.filter;
+      applyFilters();
     });
   });
 
@@ -1222,134 +1349,6 @@
 
   loginModal.addEventListener('click', (e) => {
     if(e.target === loginModal) loginModal.classList.remove('active');
-  });
-  // ---------------- FOR ME AI BEAUTY ASSISTANT CHATBOT ----------------
-  const aiChatFab = document.getElementById('aiChatFab');
-  const aiChatWindow = document.getElementById('aiChatWindow');
-  const aiChatClose = document.getElementById('aiChatClose');
-  const aiChatMessages = document.getElementById('aiChatMessages');
-  const aiChatInput = document.getElementById('aiChatInput');
-  const aiChatSend = document.getElementById('aiChatSend');
-
-  if (aiChatFab && aiChatWindow) {
-    aiChatFab.addEventListener('click', () => {
-      aiChatWindow.classList.toggle('active');
-      if (aiChatWindow.classList.contains('active')) {
-        setTimeout(() => aiChatInput.focus(), 150);
-      }
-    });
-
-    aiChatClose.addEventListener('click', () => {
-      aiChatWindow.classList.remove('active');
-    });
-  }
-
-  function appendAiMessage(sender, text, quickChips = null) {
-    const msgDiv = document.createElement('div');
-    msgDiv.className = `ai-msg ${sender}`;
-    msgDiv.textContent = text;
-    aiChatMessages.appendChild(msgDiv);
-
-    if (quickChips && quickChips.length > 0) {
-      const chipContainer = document.createElement('div');
-      chipContainer.className = 'ai-quick-prompts';
-      quickChips.forEach(chipText => {
-        const chip = document.createElement('button');
-        chip.type = 'button';
-        chip.className = 'ai-prompt-chip';
-        chip.textContent = chipText;
-        chip.addEventListener('click', () => {
-          handleAiSend(chipText);
-        });
-        chipContainer.appendChild(chip);
-      });
-      aiChatMessages.appendChild(chipContainer);
-    }
-
-    aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
-  }
-
-  function getAiResponse(query) {
-    const q = query.toLowerCase();
-
-    if (q.includes('shade') || q.includes('skin tone') || q.includes('match') || q.includes('quiz') || q.includes('undertone')) {
-      return {
-        text: "Our intelligent matching engine calibrates 9 shade depth bands (Fair, Light, Medium, Tan, Deep...) combined with warm, neutral, and cool undertones. Take our 2-Minute Match Quiz, and we'll pinpoint your exact formula match!",
-        chips: ["Take Match Quiz", "What boxes do you have?", "How do brand partners work?"]
-      };
-    }
-    if (q.includes('box') || q.includes('tier') || q.includes('pricing') || q.includes('price') || q.includes('cost')) {
-      return {
-        text: "We offer 3 curated tiers:\n\n1. The Essential Edit (₹1,499/mo) — 1-2 full-size + 3-4 travel minis (₹2,500+ value)\n2. The Premium Edit (₹2,499/mo) — 2 full-size + 3 prestige minis from MAC, Kiehl's & NARS (₹4,500+ value)\n3. Icon Box (₹4,999/mo) — 5 ultra-luxury items from high-end houses (₹8,000+ value).",
-        chips: ["Tell me about Icon Box", "Can I pause anytime?", "Start Quiz"]
-      };
-    }
-    if (q.includes('icon') || q.includes('reserve')) {
-      return {
-        text: "The Icon Box is our VIP curation at ₹4,999/month. You get 5 products from top-end global luxury houses (like Tom Ford, Chanel, La Mer, Armani) with an guaranteed retail value of ₹8,000+ per drop!",
-        chips: ["Choose Icon Box", "How does shade matching work?"]
-      };
-    }
-    if (q.includes('brand') || q.includes('kiehl') || q.includes('mac') || q.includes('nars') || q.includes('chanel')) {
-      return {
-        text: "We partner with over 120+ authentic brands ranging from prestige skincare icons (Kiehl's, Clinique, Forest Essentials) to luxury artistry houses (NARS, MAC, Chanel, e.l.f., Forever 52). Every sample is 100% genuine.",
-        chips: ["See Pricing Tiers", "Take Quiz"]
-      };
-    }
-    if (q.includes('skip') || q.includes('pause') || q.includes('cancel') || q.includes('subscription')) {
-      return {
-        text: "You are always in total control! You can pause, skip any monthly drop, or cancel directly from your profile dashboard with zero penalty.",
-        chips: ["View Boxes", "Contact Care"]
-      };
-    }
-    if (q.includes('help') || q.includes('contact') || q.includes('support') || q.includes('care')) {
-      return {
-        text: "Need extra help? Our beauty concierge team is here for you! Email us at care@formebeauty.com anytime.",
-        chips: ["Browse Tiers", "Take Quiz"]
-      };
-    }
-    
-    return {
-      text: "I'd love to help! You can ask me about shade matching, our 3 box tiers (Essential, Premium, Icon), brand partners, or subscription management.",
-      chips: ["How does shade matching work?", "Tell me box prices", "What brands are included?"]
-    };
-  }
-
-  function handleAiSend(overrideText = null) {
-    const text = overrideText || aiChatInput.value.trim();
-    if (!text) return;
-
-    appendAiMessage('user', text);
-    if (!overrideText) aiChatInput.value = '';
-
-    // If user clicked "Take Match Quiz" or "Start Quiz"
-    if (text.toLowerCase().includes('take match quiz') || text.toLowerCase().includes('take quiz') || text.toLowerCase().includes('start quiz')) {
-      setTimeout(() => {
-        window.location.href = 'quiz.html';
-      }, 700);
-      return;
-    }
-
-    // Typing simulation
-    setTimeout(() => {
-      const resp = getAiResponse(text);
-      appendAiMessage('bot', resp.text, resp.chips);
-    }, 450);
-  }
-
-  aiChatSend.addEventListener('click', () => handleAiSend());
-  aiChatInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      handleAiSend();
-    }
-  });
-
-  // Prompt chips in greeting
-  document.querySelectorAll('.ai-chat-messages .ai-prompt-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      handleAiSend(chip.textContent);
-    });
   });
 </script>
 
@@ -1391,6 +1390,119 @@
     </button>
   </div>
 </div>
+
+<script>
+  // ---------------- FOR ME AI BEAUTY ASSISTANT CHATBOT ----------------
+  // NOTE: This script MUST be after the chat HTML so all elements exist in the DOM
+  const aiChatFab = document.getElementById('aiChatFab');
+  const aiChatWindow = document.getElementById('aiChatWindow');
+  const aiChatClose = document.getElementById('aiChatClose');
+  const aiChatMessages = document.getElementById('aiChatMessages');
+  const aiChatInput = document.getElementById('aiChatInput');
+  const aiChatSend = document.getElementById('aiChatSend');
+
+  aiChatFab.addEventListener('click', () => {
+    aiChatWindow.classList.toggle('active');
+    if (aiChatWindow.classList.contains('active')) {
+      setTimeout(() => aiChatInput.focus(), 150);
+    }
+  });
+
+  aiChatClose.addEventListener('click', () => {
+    aiChatWindow.classList.remove('active');
+  });
+
+  function appendAiMessage(sender, text, quickChips) {
+    const msgDiv = document.createElement('div');
+    msgDiv.className = 'ai-msg ' + sender;
+    msgDiv.textContent = text;
+    aiChatMessages.appendChild(msgDiv);
+
+    if (quickChips && quickChips.length > 0) {
+      const chipContainer = document.createElement('div');
+      chipContainer.className = 'ai-quick-prompts';
+      quickChips.forEach(function(chipText) {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'ai-prompt-chip';
+        chip.textContent = chipText;
+        chip.addEventListener('click', function() { handleAiSend(chipText); });
+        chipContainer.appendChild(chip);
+      });
+      aiChatMessages.appendChild(chipContainer);
+    }
+    aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+  }
+
+  function getAiResponse(query) {
+    const q = query.toLowerCase();
+    if (q.includes('shade') || q.includes('skin tone') || q.includes('match') || q.includes('quiz') || q.includes('undertone')) {
+      return {
+        text: "Our intelligent matching engine calibrates 9 shade depth bands (Fair, Light, Medium, Tan, Deep...) combined with warm, neutral, and cool undertones. Take our 2-Minute Match Quiz and we'll pinpoint your exact formula match!",
+        chips: ["Take Match Quiz", "What boxes do you have?", "How do brand partners work?"]
+      };
+    }
+    if (q.includes('box') || q.includes('tier') || q.includes('pricing') || q.includes('price') || q.includes('cost')) {
+      return {
+        text: "We offer 3 curated tiers:\n\n1. The Essential Edit (₹1,499/mo) — 1-2 full-size + 3-4 travel minis (₹2,500+ value)\n2. The Premium Edit (₹2,499/mo) — 2 full-size + 3 prestige minis from MAC, Kiehl's & NARS (₹4,500+ value)\n3. Icon Box (₹4,999/mo) — 5 ultra-luxury items from high-end houses (₹8,000+ value).",
+        chips: ["Tell me about Icon Box", "Can I pause anytime?", "Start Quiz"]
+      };
+    }
+    if (q.includes('icon')) {
+      return {
+        text: "The Icon Box is our VIP curation at ₹4,999/month. You get 5 products from top-end global luxury houses (Tom Ford, Chanel, La Mer, Armani) with a guaranteed retail value of ₹8,000+ per drop!",
+        chips: ["Choose Icon Box", "How does shade matching work?"]
+      };
+    }
+    if (q.includes('brand') || q.includes('kiehl') || q.includes('mac') || q.includes('nars') || q.includes('chanel')) {
+      return {
+        text: "We partner with 120+ authentic brands — from prestige skincare icons (Kiehl's, Clinique, Forest Essentials) to luxury artistry houses (NARS, MAC, Chanel, e.l.f., Forever 52). Every product is 100% genuine.",
+        chips: ["See Pricing Tiers", "Take Quiz"]
+      };
+    }
+    if (q.includes('skip') || q.includes('pause') || q.includes('cancel') || q.includes('subscription')) {
+      return {
+        text: "You're always in total control! Pause, skip any monthly drop, or cancel directly from your profile dashboard — zero penalty.",
+        chips: ["View Boxes", "Contact Care"]
+      };
+    }
+    if (q.includes('help') || q.includes('contact') || q.includes('support') || q.includes('care')) {
+      return {
+        text: "Need extra help? Our beauty concierge team is here for you! Email us at care@formebeauty.com anytime.",
+        chips: ["Browse Tiers", "Take Quiz"]
+      };
+    }
+    return {
+      text: "I'd love to help! Ask me about shade matching, our 3 box tiers (Essential, Premium, Icon), brand partners, or subscription management.",
+      chips: ["How does shade matching work?", "Tell me box prices", "What brands are included?"]
+    };
+  }
+
+  function handleAiSend(overrideText) {
+    const text = overrideText || aiChatInput.value.trim();
+    if (!text) return;
+    appendAiMessage('user', text);
+    if (!overrideText) aiChatInput.value = '';
+    if (text.toLowerCase().includes('quiz')) {
+      setTimeout(function() { window.location.href = 'quiz.html'; }, 700);
+      return;
+    }
+    setTimeout(function() {
+      const resp = getAiResponse(text);
+      appendAiMessage('bot', resp.text, resp.chips);
+    }, 450);
+  }
+
+  aiChatSend.addEventListener('click', function() { handleAiSend(); });
+  aiChatInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') { e.preventDefault(); handleAiSend(); }
+  });
+
+  // Wire up the initial greeting chips
+  document.querySelectorAll('.ai-chat-messages .ai-prompt-chip').forEach(function(chip) {
+    chip.addEventListener('click', function() { handleAiSend(chip.textContent); });
+  });
+</script>
 
 </body>
 </html>
