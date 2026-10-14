@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Log In · 4me Beauty</title>
+<title>Log In · For me Beauty</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&family=Tenor+Sans&display=swap" rel="stylesheet">
@@ -32,14 +32,20 @@
     align-items: center;
   }
   .logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 24px;
-    letter-spacing: -0.03em;
-    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
     text-decoration: none;
   }
-  .logo span { color: #9F8265; }
+  .brand-logo-wrap {
+    display: inline-flex;
+    align-items: center;
+  }
+  .brand-logo-img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+  }
   .nav-exit {
     font-family: 'Tenor Sans', sans-serif;
     font-size: 13px;
@@ -192,19 +198,19 @@
 <body>
 
 <header>
-  <a href="index.html" class="logo">4<span>me</span></a>
+  <a href="index.html" class="logo brand-logo-wrap"><img src="assets/forme-logo.png" alt="For me" class="brand-logo-img" /></a>
   <a href="index.html" class="nav-exit">Exit</a>
 </header>
 
 <main class="login-page-main">
   <div class="login-card-container">
     <div class="login-visual">
-      <img src="assets/login-hero.jpg" alt="4Me Beauty Box & Mailer" class="login-img" />
+      <img src="assets/login-hero.jpg" alt="For me Beauty Box & Mailer" class="login-img" />
     </div>
 
     <div class="login-pane">
       <h1 class="welcome-title">Welcome Back!</h1>
-      <p class="welcome-subtitle">Log in to 4me to access the beauty subscription made for play.</p>
+      <p class="welcome-subtitle">Log in to For me to access the beauty subscription made for play.</p>
 
       <form class="welcome-form" onsubmit="event.preventDefault(); alert('Thank you for joining our waitlist.'); window.location.href='index.html';">
         <div class="welcome-input-group">
@@ -221,7 +227,7 @@
 
         <div class="welcome-footer-links">
           <p class="welcome-link-row">Not a member? <a href="quiz.html#signup">Join Now</a></p>
-          <p class="welcome-link-row">Need help? <a href="mailto:care@4mebeauty.com">Contact 4me Care</a></p>
+          <p class="welcome-link-row">Need help? <a href="mailto:care@formebeauty.com">Contact For me Care</a></p>
         </div>
       </form>
     </div>

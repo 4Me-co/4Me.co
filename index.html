@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>4me — Match. Sample. Own.</title>
+<title>For me — Match. Sample. Own.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,600;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@600;700;800&family=Tenor+Sans&display=swap" rel="stylesheet">
@@ -85,17 +85,24 @@
     padding: 16px 28px; max-width: 1240px; margin: 0 auto;
   }
   .logo {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: 24px;
-    letter-spacing: -0.03em;
-    color: var(--accent);
     display: flex;
     align-items: center;
-    gap: 2px;
   }
-  .logo span { color: var(--secondary-dark); }
-  .logo .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--secondary); display: inline-block; margin-left: 2px; }
+  .brand-logo-wrap {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+  }
+  .brand-logo-img {
+    height: 44px;
+    width: auto;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    transition: transform 0.2s ease;
+  }
+  .brand-logo-wrap:hover .brand-logo-img {
+    transform: scale(1.03);
+  }
 
   .nav-links {
     display: flex; gap: 36px; font-size: 14.5px; color: var(--text-secondary); font-weight: 500;
@@ -610,16 +617,229 @@
   /* ---------- FOOTER ---------- */
   footer { background: var(--bg-main); padding: 60px 0 40px; border-top: 1px solid var(--border); }
   .footer-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-  .footer-links { display: flex; gap: 28px; font-size: 13.5px; color: var(--text-secondary); font-weight: 500; }
-  .footer-links a:hover { color: var(--accent); }
-  .footer-copy { font-size: 12.5px; color: var(--text-muted); }
+  /* ---------- FLOATING FOR ME AI ASSISTANT ---------- */
+  .ai-fab-btn {
+    position: fixed;
+    bottom: 26px;
+    right: 26px;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #203B2B;
+    color: #F8F5EE;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 20px 12px 14px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(32, 59, 43, 0.35);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .ai-fab-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 14px 36px rgba(32, 59, 43, 0.45);
+    background: #172D20;
+  }
+  .ai-fab-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #E8F0EA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.3);
+  }
+  .ai-fab-pulse {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4ADE80;
+    animation: fabPulse 2s infinite;
+  }
+  @keyframes fabPulse {
+    0% { transform: scale(0.95); opacity: 0.8; }
+    50% { transform: scale(1.25); opacity: 1; }
+    100% { transform: scale(0.95); opacity: 0.8; }
+  }
+
+  /* Chat Window */
+  .ai-chat-window {
+    position: fixed;
+    bottom: 90px;
+    right: 26px;
+    width: 380px;
+    max-width: calc(100vw - 32px);
+    height: 540px;
+    max-height: calc(100vh - 120px);
+    background: #FFFFFF;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    border: 1px solid #EFE8DE;
+    display: none;
+    flex-direction: column;
+    z-index: 1000;
+    overflow: hidden;
+    animation: chatSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .ai-chat-window.active {
+    display: flex;
+  }
+  @keyframes chatSlideUp {
+    from { opacity: 0; transform: translateY(16px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .ai-chat-header {
+    background: #203B2B;
+    color: #F8F5EE;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .ai-chat-header-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .ai-chat-header-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #E8F0EA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+  }
+  .ai-chat-title {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #FFFFFF;
+  }
+  .ai-chat-subtitle {
+    font-size: 12px;
+    color: #C2D5C8;
+    margin-top: 2px;
+  }
+  .ai-chat-close {
+    background: transparent;
+    border: none;
+    color: #FFFFFF;
+    font-size: 22px;
+    cursor: pointer;
+    line-height: 1;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+  }
+  .ai-chat-close:hover { opacity: 1; }
+
+  .ai-chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: #FAF8F5;
+  }
+  .ai-msg {
+    max-width: 84%;
+    padding: 12px 16px;
+    border-radius: 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    word-break: break-word;
+  }
+  .ai-msg.bot {
+    background: #FFFFFF;
+    color: #2D2520;
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+    border: 1px solid #ECE3D6;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+  }
+  .ai-msg.user {
+    background: #203B2B;
+    color: #F8F5EE;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+  }
+
+  .ai-quick-prompts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .ai-prompt-chip {
+    background: #F0EAE1;
+    color: #203B2B;
+    border: 1px solid #DFD5C6;
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .ai-prompt-chip:hover {
+    background: #203B2B;
+    color: #FFFFFF;
+    border-color: #203B2B;
+  }
+
+  .ai-chat-input-area {
+    padding: 14px;
+    background: #FFFFFF;
+    border-top: 1px solid #EFE8DE;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .ai-chat-input {
+    flex: 1;
+    border: 1.5px solid #E6DED4;
+    border-radius: 999px;
+    padding: 10px 16px;
+    font-size: 13.5px;
+    font-family: var(--font-body);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .ai-chat-input:focus {
+    border-color: #203B2B;
+  }
+  .ai-chat-send {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #203B2B;
+    color: #FFFFFF;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.15s;
+  }
+  .ai-chat-send:hover {
+    background: #172D20;
+  }
 </style>
 </head>
 <body>
 
 <header class="nav">
   <div class="nav-inner">
-    <a href="#" class="logo">4<span>me</span><span class="dot"></span></a>
+    <a href="#" class="logo brand-logo-wrap"><img src="assets/forme-logo.png" alt="For me" class="brand-logo-img" /></a>
     
     <nav class="nav-links">
       <a href="#community">Community</a>
@@ -665,7 +885,7 @@
     <!-- HERO VISUAL PHOTOGRAPHY -->
     <div class="hero-visual">
       <div class="hero-image-wrap">
-        <img src="assets/login-hero.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80';" alt="4me unboxing curation — personalized makeup, shade swatches, and luxury pouches" />
+        <img src="assets/login-hero.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80';" alt="For me unboxing curation — personalized makeup, shade swatches, and luxury pouches" />
       </div>
     </div>
   </div>
@@ -694,10 +914,10 @@
       </div>
 
       <div class="ugc-card ugc-card-mid-top">
-        <span class="ugc-pill">#matchedby4me</span>
+        <span class="ugc-pill">#matchedbyForme</span>
         <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?auto=format&fit=crop&w=700&q=80" alt="Friends unboxing cosmetics" />
         <div class="ugc-overlay">
-          <div class="ugc-author">4me Creator Studio</div>
+          <div class="ugc-author">For me Creator Studio</div>
           <div class="ugc-caption">Unboxing Drop #08 with the beauty squad.</div>
         </div>
       </div>
@@ -773,7 +993,7 @@
   <div class="wrap">
     <div class="section-head">
       <span class="section-tag">Step 01 · Build Your Profile</span>
-      <h2 class="section-title">The 4me Match Quiz</h2>
+      <h2 class="section-title">The For me Match Quiz</h2>
       <p class="section-desc">Two minutes of precision questions feed our shade matching engine — depth, undertone, concerns, and your personal beauty aesthetic.</p>
     </div>
 
@@ -788,7 +1008,7 @@
           Answer a few quick questions about your undertone, skin goals, and go-to style, and we’ll pinpoint your exact formula and shade match.
         </p>
         <a class="btn-primary" href="quiz.html">
-          Start the 4me Match Quiz
+          Start the For me Match Quiz
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
       </div>
@@ -815,7 +1035,7 @@
 <section id="flow">
   <div class="wrap">
     <div class="section-head">
-      <span class="section-tag">How 4me Works</span>
+      <span class="section-tag">How For me Works</span>
       <h2 class="section-title">Three steps. Zero guessing.</h2>
       <p class="section-desc">From profile creation to your monthly curated beauty haul — the entire experience is built around one simple promise: never buy blind again.</p>
     </div>
@@ -920,15 +1140,15 @@
   <div class="modal-card">
     <button class="modal-close" id="closeLoginBtn" title="Close">&times;</button>
     
-    <!-- Left Column: 4Me Hero Image -->
+    <!-- Left Column: For me Hero Image -->
     <div class="modal-visual">
-      <img src="assets/login-hero.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80';" alt="4Me Beauty Box & Mailer" class="modal-img" />
+      <img src="assets/login-hero.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80';" alt="For me Beauty Box & Mailer" class="modal-img" />
     </div>
 
     <!-- Right Column: Welcome Back Form -->
     <div class="modal-pane">
       <h3 class="modal-title">Welcome Back!</h3>
-      <p class="modal-sub">Log in to 4me to access the beauty subscription made for play.</p>
+      <p class="modal-sub">Log in to For me to access the beauty subscription made for play.</p>
       
       <form onsubmit="event.preventDefault(); alert('Thank you for joining our waitlist.'); document.getElementById('loginModal').classList.remove('active');">
         <div class="form-group">
@@ -945,7 +1165,7 @@
 
         <div class="modal-footer-links">
           <p class="modal-link-row">Not a member? <a href="quiz.html#signup">Join Now</a></p>
-          <p class="modal-link-row">Need help? <a href="mailto:care@4mebeauty.com">Contact 4me Care</a></p>
+          <p class="modal-link-row">Need help? <a href="mailto:care@formebeauty.com">Contact For me Care</a></p>
         </div>
       </form>
     </div>
@@ -955,7 +1175,7 @@
 <!-- FOOTER -->
 <footer>
   <div class="wrap footer-row">
-    <div class="logo">4<span>me</span><span class="dot"></span></div>
+    <div class="logo brand-logo-wrap"><img src="assets/forme-logo.png" alt="For me" class="brand-logo-img" /></div>
     
     <div class="footer-links">
       <a href="#community">Community</a>
@@ -964,7 +1184,7 @@
       <a href="#flow">How It Works</a>
     </div>
     
-    <div class="footer-copy">4me Platform © 2026 · Match. Sample. Own.</div>
+    <div class="footer-copy">For me Platform © 2026 · Match. Sample. Own.</div>
   </div>
 </footer>
 
@@ -1003,7 +1223,174 @@
   loginModal.addEventListener('click', (e) => {
     if(e.target === loginModal) loginModal.classList.remove('active');
   });
+  // ---------------- FOR ME AI BEAUTY ASSISTANT CHATBOT ----------------
+  const aiChatFab = document.getElementById('aiChatFab');
+  const aiChatWindow = document.getElementById('aiChatWindow');
+  const aiChatClose = document.getElementById('aiChatClose');
+  const aiChatMessages = document.getElementById('aiChatMessages');
+  const aiChatInput = document.getElementById('aiChatInput');
+  const aiChatSend = document.getElementById('aiChatSend');
+
+  if (aiChatFab && aiChatWindow) {
+    aiChatFab.addEventListener('click', () => {
+      aiChatWindow.classList.toggle('active');
+      if (aiChatWindow.classList.contains('active')) {
+        setTimeout(() => aiChatInput.focus(), 150);
+      }
+    });
+
+    aiChatClose.addEventListener('click', () => {
+      aiChatWindow.classList.remove('active');
+    });
+  }
+
+  function appendAiMessage(sender, text, quickChips = null) {
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `ai-msg ${sender}`;
+    msgDiv.textContent = text;
+    aiChatMessages.appendChild(msgDiv);
+
+    if (quickChips && quickChips.length > 0) {
+      const chipContainer = document.createElement('div');
+      chipContainer.className = 'ai-quick-prompts';
+      quickChips.forEach(chipText => {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'ai-prompt-chip';
+        chip.textContent = chipText;
+        chip.addEventListener('click', () => {
+          handleAiSend(chipText);
+        });
+        chipContainer.appendChild(chip);
+      });
+      aiChatMessages.appendChild(chipContainer);
+    }
+
+    aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+  }
+
+  function getAiResponse(query) {
+    const q = query.toLowerCase();
+
+    if (q.includes('shade') || q.includes('skin tone') || q.includes('match') || q.includes('quiz') || q.includes('undertone')) {
+      return {
+        text: "Our intelligent matching engine calibrates 9 shade depth bands (Fair, Light, Medium, Tan, Deep...) combined with warm, neutral, and cool undertones. Take our 2-Minute Match Quiz, and we'll pinpoint your exact formula match!",
+        chips: ["Take Match Quiz", "What boxes do you have?", "How do brand partners work?"]
+      };
+    }
+    if (q.includes('box') || q.includes('tier') || q.includes('pricing') || q.includes('price') || q.includes('cost')) {
+      return {
+        text: "We offer 3 curated tiers:\n\n1. The Essential Edit (₹1,499/mo) — 1-2 full-size + 3-4 travel minis (₹2,500+ value)\n2. The Premium Edit (₹2,499/mo) — 2 full-size + 3 prestige minis from MAC, Kiehl's & NARS (₹4,500+ value)\n3. Icon Box (₹4,999/mo) — 5 ultra-luxury items from high-end houses (₹8,000+ value).",
+        chips: ["Tell me about Icon Box", "Can I pause anytime?", "Start Quiz"]
+      };
+    }
+    if (q.includes('icon') || q.includes('reserve')) {
+      return {
+        text: "The Icon Box is our VIP curation at ₹4,999/month. You get 5 products from top-end global luxury houses (like Tom Ford, Chanel, La Mer, Armani) with an guaranteed retail value of ₹8,000+ per drop!",
+        chips: ["Choose Icon Box", "How does shade matching work?"]
+      };
+    }
+    if (q.includes('brand') || q.includes('kiehl') || q.includes('mac') || q.includes('nars') || q.includes('chanel')) {
+      return {
+        text: "We partner with over 120+ authentic brands ranging from prestige skincare icons (Kiehl's, Clinique, Forest Essentials) to luxury artistry houses (NARS, MAC, Chanel, e.l.f., Forever 52). Every sample is 100% genuine.",
+        chips: ["See Pricing Tiers", "Take Quiz"]
+      };
+    }
+    if (q.includes('skip') || q.includes('pause') || q.includes('cancel') || q.includes('subscription')) {
+      return {
+        text: "You are always in total control! You can pause, skip any monthly drop, or cancel directly from your profile dashboard with zero penalty.",
+        chips: ["View Boxes", "Contact Care"]
+      };
+    }
+    if (q.includes('help') || q.includes('contact') || q.includes('support') || q.includes('care')) {
+      return {
+        text: "Need extra help? Our beauty concierge team is here for you! Email us at care@formebeauty.com anytime.",
+        chips: ["Browse Tiers", "Take Quiz"]
+      };
+    }
+    
+    return {
+      text: "I'd love to help! You can ask me about shade matching, our 3 box tiers (Essential, Premium, Icon), brand partners, or subscription management.",
+      chips: ["How does shade matching work?", "Tell me box prices", "What brands are included?"]
+    };
+  }
+
+  function handleAiSend(overrideText = null) {
+    const text = overrideText || aiChatInput.value.trim();
+    if (!text) return;
+
+    appendAiMessage('user', text);
+    if (!overrideText) aiChatInput.value = '';
+
+    // If user clicked "Take Match Quiz" or "Start Quiz"
+    if (text.toLowerCase().includes('take match quiz') || text.toLowerCase().includes('take quiz') || text.toLowerCase().includes('start quiz')) {
+      setTimeout(() => {
+        window.location.href = 'quiz.html';
+      }, 700);
+      return;
+    }
+
+    // Typing simulation
+    setTimeout(() => {
+      const resp = getAiResponse(text);
+      appendAiMessage('bot', resp.text, resp.chips);
+    }, 450);
+  }
+
+  aiChatSend.addEventListener('click', () => handleAiSend());
+  aiChatInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleAiSend();
+    }
+  });
+
+  // Prompt chips in greeting
+  document.querySelectorAll('.ai-chat-messages .ai-prompt-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      handleAiSend(chip.textContent);
+    });
+  });
 </script>
+
+<!-- FLOATING FOR ME AI ASSISTANT -->
+<button class="ai-fab-btn" id="aiChatFab" aria-label="Open For me Beauty Assistant">
+  <div class="ai-fab-avatar">✨</div>
+  <span>Ask Beauty AI</span>
+  <span class="ai-fab-pulse"></span>
+</button>
+
+<div class="ai-chat-window" id="aiChatWindow">
+  <div class="ai-chat-header">
+    <div class="ai-chat-header-info">
+      <div class="ai-chat-header-avatar">✨</div>
+      <div>
+        <div class="ai-chat-title">For me Beauty AI</div>
+        <div class="ai-chat-subtitle">Shade Consultant & Concierge · Online</div>
+      </div>
+    </div>
+    <button class="ai-chat-close" id="aiChatClose" title="Close chat">&times;</button>
+  </div>
+
+  <div class="ai-chat-messages" id="aiChatMessages">
+    <div class="ai-msg bot">
+      Hi! I'm your <strong>For me AI Beauty Assistant</strong> ✨<br><br>
+      How can I assist your beauty journey today?
+    </div>
+    <div class="ai-quick-prompts">
+      <button type="button" class="ai-prompt-chip">How does shade matching work?</button>
+      <button type="button" class="ai-prompt-chip">What's in the 3 box tiers?</button>
+      <button type="button" class="ai-prompt-chip">Take Match Quiz</button>
+    </div>
+  </div>
+
+  <div class="ai-chat-input-area">
+    <input type="text" id="aiChatInput" class="ai-chat-input" placeholder="Ask about shades, formulas, tiers..." />
+    <button type="button" id="aiChatSend" class="ai-chat-send" title="Send message">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+</div>
 
 </body>
 </html>
