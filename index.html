@@ -885,7 +885,10 @@
 
 <header class="nav">
   <div class="nav-inner">
-    <a href="#" class="logo brand-logo-wrap"><img src="assets/forme-logo.png" alt="For me" class="brand-logo-img" /></a>
+    <a href="#" class="logo brand-logo-wrap">
+      <img src="assets/forme-logo.png" alt="For me" class="brand-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='inline';" />
+      <span style="display:none;font-family:var(--font-head);font-size:22px;font-weight:800;color:var(--accent);letter-spacing:-0.02em;">For me</span>
+    </a>
     
     <nav class="nav-links">
       <a href="#community">Community</a>
@@ -931,7 +934,7 @@
     <!-- HERO VISUAL PHOTOGRAPHY -->
     <div class="hero-visual">
       <div class="hero-image-wrap">
-        <img src="assets/login-hero.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80';" alt="For me unboxing curation — personalized makeup, shade swatches, and luxury pouches" />
+        <img src="assets/hero-box.jpg" onerror="this.onerror=null; this.src='assets/login-hero.jpg';" alt="For me personalized beauty subscription bag with curated products" />
       </div>
     </div>
   </div>
